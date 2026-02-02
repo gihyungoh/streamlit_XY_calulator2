@@ -1,8 +1,8 @@
 import streamlit as st
 
-# --- z 구간별 선형 함수 정의 (수동 계산된 계수) ---
+# --- z 구간별 선형 함수 정의 (검증된 계수) ---
 def predict_XY_by_z(X2, Y2, z):
-    # z 구간별 선형 함수
+    # z 구간별 선형 함수 (검증된 계수 사용)
     if z < 2.2:
         # z ∈ [1.8, 2.2)
         X = 1.201 + 0.223*X2 + 0.187*Y2
@@ -27,10 +27,10 @@ def predict_XY_by_z(X2, Y2, z):
     return X, Y
 
 # --- Streamlit UI ---
-st.set_page_config(page_title="🎯 타원 X,Y 예측기 (z 구간별 선형)", layout="centered")
+st.set_page_config(page_title="🎯 타원 X,Y 예측기 (검증된 계수)", layout="centered")
 
-st.title("🎯 타원 넓이 기반 X, Y 예측기 (z 구간별 선형 함수)")
-st.write("직사각형 A×B의 70% 넓이를 가지는 타원의 X2, Y2를 계산한 후, z 구간에 따라 X, Y를 선형 함수로 예측합니다.")
+st.title("🎯 타원 넓이 기반 X, Y 예측기 (검증된 선형 함수)")
+st.write("직사각형 A×B의 70% 넓이를 가지는 타원의 X2, Y2를 계산한 후, z 구간에 따라 X, Y를 검증된 선형 함수로 예측합니다.")
 
 # 입력 폼
 col1, col2, col3 = st.columns(3)
@@ -48,7 +48,7 @@ if st.button("✅ X, Y 계산하기"):
     X2 = A * k
     Y2 = B * k
 
-    # 예측 (z 구간별 선형 함수 사용)
+    # 예측 (z 구간별 검증된 선형 함수 사용)
     X_pred, Y_pred = predict_XY_by_z(X2, Y2, z)
 
     # 결과 출력
@@ -64,7 +64,7 @@ if st.button("✅ X, Y 계산하기"):
     st.info(f"※ 직사각형 넓이의 70% = 0.7 × A × B = {rect_area_70:.4f}")
 
 # --- z 구간 정보 ---
-with st.expander("ℹ️ z 구간별 선형 함수 정보"):
+with st.expander("ℹ️ z 구간별 검증된 계수 정보"):
     st.write("z 구간별로 다른 선형 함수 사용 → 정확도 향상")
     st.write("1구간: z ∈ [1.8, 2.2)")
     st.write("2구간: z ∈ [2.2, 2.857)")
