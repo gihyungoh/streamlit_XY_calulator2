@@ -1,11 +1,7 @@
 import streamlit as st
-import numpy as np
 
-# --- z 구간별 함수 정의 ---
+# --- z 구간별 함수 정의 (수동 계산된 계수) ---
 def predict_XY_by_z(X2, Y2, z):
-    pi = np.pi
-    k = np.sqrt(2.8 / pi)
-
     # z 구간별 함수
     if z < 2.2:
         # z ∈ [1.8, 2.2)
@@ -47,8 +43,8 @@ with col3:
 
 # 계산 버튼
 if st.button("✅ X, Y 계산하기"):
-    pi = np.pi
-    k = np.sqrt(2.8 / pi)  # 타원 넓이 조건에 맞는 비율 계수
+    # k = √(2.8 / π) → 수동 계산된 값 사용
+    k = 0.9354  # √(2.8 / π) ≈ 0.9354
     X2 = A * k
     Y2 = B * k
 
@@ -62,7 +58,7 @@ if st.button("✅ X, Y 계산하기"):
     st.write(f"**예측된 X, Y**: X = {X_pred:.4f}, Y = {Y_pred:.4f}")
 
     # 추가 정보
-    ellipse_area = pi * X2 * Y2 / 4
+    ellipse_area = 3.1416 * X2 * Y2 / 4  # π ≈ 3.1416
     rect_area_70 = 0.7 * A * B
     st.info(f"※ 타원 넓이 = π × X2 × Y2 / 4 = {ellipse_area:.4f}")
     st.info(f"※ 직사각형 넓이의 70% = 0.7 × A × B = {rect_area_70:.4f}")
@@ -75,4 +71,4 @@ with st.expander("ℹ️ z 구간별 함수 정보"):
     st.write("3구간: z ∈ [2.857, 4)")
     st.write("4구간: z ∈ [4, 6.6667)")
     st.write("5구간: z ∈ [6.6667, ∞)")
-    st.write(f"k = √(2.8 / π) ≈ {k:.4f}")
+    st.write(f"k = √(2.8 / π) ≈ 0.9354")
